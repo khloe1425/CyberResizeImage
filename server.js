@@ -1,7 +1,7 @@
 const express = require('express')
 const server = express()
 const resize = require('./resize')
-
+const port = 8080;
 server.get('/', (req, res) => {
     const widthStr = req.query.width
     const heightStr = req.query.height
@@ -10,13 +10,13 @@ server.get('/', (req, res) => {
     if (widthStr) {
         width = parseInt(widthStr)
     }
-    if(heightStr) {
+    if (heightStr) {
         height = parseInt(heightStr)
     }
-    res.type(`image/${ format || 'png' }`)
+    res.type(`image/${format || 'png'}`)
     resize('images/normal/nodejs.png', format, width, height).pipe(res)
 })
 
-server.listen(3000, () => {
-    console.log('Server is running on port 3000!')
+server.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}/`);
 })
